@@ -1,8 +1,9 @@
-using { com.salesorder.types } from './types';
+using {com.salesorder.types} from './types';
 
 namespace com.salesorder;
 
 using { managed } from '@sap/cds/common';
+
 entity zcustomer_2893 {
     key email     : types.zde_email_2893;
         firstname : types.zde_firstname_2893;
@@ -30,8 +31,8 @@ entity zorderstat_2893 {
 
 entity zheader_2893 : managed {
     key headeruuid   : UUID;
-        id           : Integer;
-        email        : types.zde_email_2893;
+        id           : Integer @(readonly);
+        email        : Association to zcustomer_2893;
         firstname    : types.zde_firstname_2893;
         lastname     : types.zde_lastname_2893;
         country      : types.zde_country_2893;
@@ -39,14 +40,15 @@ entity zheader_2893 : managed {
         deliverydate : Date;
         orderstatus  : types.zde_orderstatus_2893;
         imageurl     : types.zde_imageurl_2893;
-        item         : Composition of many zitems_2893
-                           on item.header = $self;
+        items         : Composition of many zitems_2893
+                           on items.header = $self;
 };
 
 entity zitems_2893 : managed {
     key itemuuid         : UUID;
     key headeruuid       : UUID;
-        id               : Integer;
+        header           : Association to zheader_2893;
+        id               : Integer @(readonly);
         name             : types.zde_name_2893;
         description      : types.zde_description_2893;
         releasedate      : Date;
@@ -57,5 +59,5 @@ entity zitems_2893 : managed {
         depth            : types.zde_depth_2893;
         quantity         : types.zde_quantity_2893;
         unitofmeasure    : types.zde_unitofmeasure_2893;
-        header           : Association to zheader_2893;
 }
+

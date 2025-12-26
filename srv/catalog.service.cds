@@ -5,6 +5,7 @@ service catalogService {
     entity zcustomer_2893  as projection on salesorder.zcustomer_2893;
     entity zproducts_2893  as projection on salesorder.zproducts_2893;
     @odata.draft.enabled
-    entity zheader_2893    as projection on salesorder.zheader_2893
+    entity zheader_2893    as projection on salesorder.zheader_2893;
     entity zitems_2893     as projection on salesorder.zitems_2893;
+
 }
