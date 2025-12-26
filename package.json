@@ -5,14 +5,30 @@
   "dependencies": {
     "@sap/cds": "^9.6.1",
     "express": "^4",
+    "jeep-sqlite": "^2.8.0",
     "latest": "^0.2.0",
-    "node.js": "^0.0.1-security"
+    "node.js": "^0.0.1-security",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^2"
+    "@cap-js/cds-types": "^0.15.0",
+    "@cap-js/sqlite": "^2.1.2"
+  },
+  "cds": {
+    "requires": {
+      "[dev]": {
+        "db": {
+          "kind": "sqlite",
+          "credentials": {
+            "database": "db.sqlite"
+          }
+        },
+        "auth": "dummy"
+      }
+    }
   },
   "scripts": {
-    "start": "cds watch"
+    "start": "cds watch --profile dev"
   },
   "private": true
 }

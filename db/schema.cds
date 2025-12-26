@@ -46,10 +46,9 @@ entity zheader_2893 : managed {
 
 entity zitems_2893 : managed {
     key itemuuid         : UUID;
-    key headeruuid       : UUID;
         header           : Association to zheader_2893;
         id               : Integer @(readonly);
-        name             : types.zde_name_2893;
+        name             : Association to zproducts_2893;
         description      : types.zde_description_2893;
         releasedate      : Date;
         discontinueddate : Date;

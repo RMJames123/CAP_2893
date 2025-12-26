@@ -1,2 +1,11 @@
 {
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "salesorder",
+            "database": "${workspaceFolder:CAP_2893}/db.sqlite"
+        }
+    ],
+    "terminal.integrated.sendKeybindingsToShell": true
 }

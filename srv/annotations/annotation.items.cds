@@ -23,7 +23,7 @@ LineItem #items : [
     },
     {
         $Type: 'UI.DataField',
-        Value: name
+        Value: name_name
     },
     {
         $Type: 'UI.DataField',
@@ -61,6 +61,53 @@ LineItem #items : [
         $Type: 'UI.DataField',
         Value: unitofmeasure
     }
-]
+],
+
+    FieldGroup #item : {
+        $Type : 'UI.FieldGroupType',
+        Data: [
+            {
+                $Type: 'UI.DataField',
+                Value: id            },
+            {
+                $Type: 'UI.DataField',
+                Value: name_name            },
+            {
+                $Type: 'UI.DataField',
+                Value: description            },
+            {
+                $Type: 'UI.DataField',
+                Value: releasedate            },
+            {
+                $Type: 'UI.DataField',
+                Value: discontinueddate            },
+            {
+                $Type: 'UI.DataField',
+                Value: price            },
+            {
+                $Type: 'UI.DataField',
+                Value: height            },
+            {
+                $Type: 'UI.DataField',
+                Value: width            },
+            {
+                $Type: 'UI.DataField',
+                Value: depth            },
+            {
+                $Type: 'UI.DataField',
+                Value: quantity            },
+            {
+                $Type: 'UI.DataField',
+                Value: unitofmeasure            }
+        ]
+    },
+
+Facets  : [
+    {
+        $Type: 'UI.ReferenceFacet',
+        Target: '@UI.FieldGroup#item'
+    }
+],
 };
+
 
