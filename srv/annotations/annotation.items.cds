@@ -110,4 +110,80 @@ Facets  : [
 ],
 };
 
+annotate projection.zitems_2893 with {
+    name @Common: {
+        ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath: 'zproducts_2893',
+            Parameters: [
+                {
+                    $Type: 'Common.ValueListParameterInOut',
+                    LocalDataProperty: name_name,
+                    ValueListProperty: 'name'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: description,
+                    ValueListProperty: 'description'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: releasedate,
+                    ValueListProperty: 'releasedate'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: discontinueddate,
+                    ValueListProperty: 'discontinueddate'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: price,
+                    ValueListProperty: 'price'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: height,
+                    ValueListProperty: 'height'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: width,
+                    ValueListProperty: 'width'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: depth,
+                    ValueListProperty: 'depth'
+                },
+                {
+                    $Type: 'Common.ValueListParameterOut',
+                    LocalDataProperty: unitofmeasure,
+                    ValueListProperty: 'unitofmeasure'
+                },
 
+            {
+                $Type            : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty: 'description',
+            },
+            {
+                $Type            : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty: 'price',
+            }            
+            ]
+        },
+    }
+};
+
+annotate projection.zitems_2893 with @(
+
+    Common.SideEffects : {
+        $Type : 'Common.SideEffectsType',
+        SourceProperties : [
+            name_name
+        ],
+        TargetEntities: [
+            'zitems_2893'
+        ]
+    }
+);

@@ -1,6 +1,7 @@
 using {catalogService as projection} from '../catalog.service';
 using from './annotation.items';
 
+
 annotate projection.zheader_2893 with {
     id           @title: 'ID';
     email        @title: 'Email';
@@ -33,6 +34,26 @@ annotate projection.zheader_2893 with {
                 ValueListProperty: 'email',
             },
             {
+                $Type            : 'Common.ValueListParameterOut',
+                LocalDataProperty: firstname,
+                ValueListProperty: 'firstname',
+            },
+            {
+                $Type            : 'Common.ValueListParameterOut',
+                LocalDataProperty: lastname,
+                ValueListProperty: 'lastname',
+            },
+            {
+                $Type            : 'Common.ValueListParameterOut',
+                LocalDataProperty: country,
+                ValueListProperty: 'country',
+            },
+            {
+                $Type            : 'Common.ValueListParameterOut',
+                LocalDataProperty: imageurl,
+                ValueListProperty: 'imageurl',
+            },
+            {
                 $Type            : 'Common.ValueListParameterDisplayOnly',
                 ValueListProperty: 'firstname',
             },
@@ -59,6 +80,7 @@ annotate projection.zheader_2893 with {
 
         ]
     }, }
+
 };
 
 annotate projection.zheader_2893 with @UI.SelectionFields: [
@@ -176,3 +198,16 @@ annotate projection.zheader_2893 with @UI: {
     }
     ],
 };
+
+annotate projection.zheader_2893 with @(
+
+    Common.SideEffects : {
+        $Type : 'Common.SideEffectsType',
+        SourceProperties : [
+            email_email
+        ],
+        TargetEntities: [
+            'zheader_2893'
+        ]
+    }
+);
