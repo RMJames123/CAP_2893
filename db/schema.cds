@@ -60,3 +60,16 @@ entity zitems_2893 : managed {
         unitofmeasure    : types.zde_unitofmeasure_2893;
 };
 
+@readonly
+entity repcustomer   as select from zcustomer_2893;
+
+@readonly
+entity repproducts   as select from zproducts_2893;
+
+@readonly
+entity reporderstat  as select from zorderstat_2893;
+
+@readonly
+entity repventashead as select from zheader_2893;
+@readonly
+entity repventasitem as select from zitems_2893;

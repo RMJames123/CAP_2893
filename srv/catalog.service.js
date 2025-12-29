@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const { LIMIT_COMPOUND_SELECT } = require('sqlite3');
 
 module.exports = class SalesOrder extends cds.ApplicationService {
     init() {
@@ -38,10 +39,78 @@ module.exports = class SalesOrder extends cds.ApplicationService {
             await UPDATE.entity(zheader_2893).set({orderstatus: 'Reject'}).where({headeruuid: req.params[0].headeruuid});
         });
  
-        this.before('UPDATE', zheader_2893.drafts,(req)=>{
-            console.log("Estoy a punto de hacer una actualizacion del pedido!!!!");
+        this.before('CREATE', zheader_2893.drafts, async (req)=>{
+
+            const ft = new Date();
+            const año = ft.getFullYear();
+            const mes = String(ft.getMonth() + 1).padStart(2, '0'); 
+            const dia = String(ft.getDate()).padStart(2, '0');
+            const fecha = `${año}-${mes}-${dia}`;
+            const {createon, deliverydate} = req.data;
+
+            const result = await SELECT.from(zheader_2893.drafts).columns(`createon`,`deliverydate`).where({headeruuid : req.data.headeruuid})
+
+ 
+        });
+
+        this.before('UPDATE', zheader_2893.drafts, async (req)=>{
+
+            const ft = new Date();
+            const año = ft.getFullYear();
+            const mes = String(ft.getMonth() + 1).padStart(2, '0'); 
+            const dia = String(ft.getDate()).padStart(2, '0');
+            const fecha = `${año}-${mes}-${dia}`;
+            const {createon, deliverydate} = req.data;
+
+            const result = await SELECT.from(zheader_2893.drafts).columns(`createon`,`deliverydate`).where({headeruuid : req.data.headeruuid})
+
+            console.log(createon);
+            console.log(deliverydate);
+            console.log(fecha);
+            console.log(result[0].createon);
+            console.log(result[0].deliverydate);
+
+            if (typeof createon === 'undefined') {        
+                console.log("createon es igual a undefined");      
+                if (deliverydate < fecha) {
+                    console.log("deliverydate < fecha");
+                    req.error(400,"Delivery Date, debe ser mayor o igual que la fecha actual");
+                } else {
+                    console.log("pregunta si result.createon < fecha");
+                    if (result[0].createon < fecha) {
+                        console.log("result.createon < fecha");
+                        req.error(400,"Delivery Date, debe ser mayor o igual que la fecha actual");
+                    } else {
+                        console.log("pregunta si deliverydate < result.createon");
+                        if (deliverydate < result[0].createon) {
+                            console.log("deliverydate < result.createon");
+                            req.error(400,"La fecha Create On, debe ser mayor o igual que la Delivery Date");
+                        }
+                    }
+                }
+            } else {
+                if (createon < fecha) {
+                    console.log("createon < fecha")
+                    req.error(400,"La fecha Create On, debe ser mayor o igual que la fecha actual");
+                } else {
+                    console.log("pregunta si result.deliverydate < fecha");
+                    if (result[0].deliverydate < fecha) {
+                        console.log("result.deliverydate < fecha");
+                        req.error(400,"Delivery Date, debe ser mayor o igual que la fecha actual");
+                    } else {
+                        console.log("pregunta si createon > result.deliverydate");
+                        if (createon > result[0].deliverydate) {
+                            console.log("createon > result.deliverydate");
+                            req.error(400,"La fecha Create On, debe ser menor o igual que la Delivery Date");
+                        } 
+                    }
+                }
+
+            }
+
         });
 
         return super.init();
-    }
+
+}
 }

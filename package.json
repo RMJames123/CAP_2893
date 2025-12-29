@@ -20,7 +20,7 @@
         "db": {
           "kind": "sqlite",
           "credentials": {
-            "database": "db.sqlite"
+            "url": "db.sqlite"
           }
         },
         "auth": "dummy"
