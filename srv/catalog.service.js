@@ -18,10 +18,7 @@ module.exports = class SalesOrder extends cds.ApplicationService {
             reqh.data.id = ++mquery.max;
         });
 
-            this.before('NEW', zitems_2893.drafts, async (reqi)=>{
-            console.log("***** INICIO ITEMS *****")
-            console.log(reqi.data);
-            console.log("***** TERMINO ITEMS *****")
+        this.before('NEW', zitems_2893.drafts, async (reqi)=>{
             const mquery = await SELECT.one.from(zitems_2893).columns(`max(id) as max`).where({header_headeruuid: reqi.data.header_headeruuid});
             if ( mquery.max === null) {
                 mquery.max = 0;    
@@ -34,11 +31,17 @@ module.exports = class SalesOrder extends cds.ApplicationService {
             reqi.data.id = ++mquery.max;
         });
 
+        this.on('acceptOrder', async (req)=>{
+            await UPDATE.entity(zheader_2893).set({orderstatus: 'Accept'}).where({headeruuid: req.params[0].headeruuid});
+        });
+        this.on('rejectOrder', async (req)=>{
+            await UPDATE.entity(zheader_2893).set({orderstatus: 'Reject'}).where({headeruuid: req.params[0].headeruuid});
+        });
+ 
         this.before('UPDATE', zheader_2893.drafts,(req)=>{
             console.log("Estoy a punto de hacer una actualizacion del pedido!!!!");
         });
 
-        
         return super.init();
     }
 }

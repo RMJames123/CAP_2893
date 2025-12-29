@@ -1,7 +1,6 @@
 using {catalogService as projection} from '../catalog.service';
 using from './annotation.items';
 
-
 annotate projection.zheader_2893 with {
     id           @title: 'ID';
     email        @title: 'Email';
@@ -97,11 +96,25 @@ annotate projection.zheader_2893 with @UI.HeaderInfo: {
     Title         : {
         $Type: 'UI.DataField',
         Value: id,
-    }
+    },
+
+
+
 
 };
 
 annotate projection.zheader_2893 with @UI.LineItem: [
+
+{
+    $Type: 'UI.DataFieldForAction',
+    Action: 'catalogService.acceptOrder',
+    Label: 'Accept Order'
+},
+{
+    $Type: 'UI.DataFieldForAction',
+    Action: 'catalogService.rejectOrder',
+    Label: 'Reject Order'
+},
 
     {
         $Type: 'UI.DataField',
