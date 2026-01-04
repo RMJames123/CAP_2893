@@ -64,12 +64,6 @@ module.exports = class SalesOrder extends cds.ApplicationService {
 
             const result = await SELECT.from(zheader_2893.drafts).columns(`createon`,`deliverydate`).where({headeruuid : req.data.headeruuid})
 
-            console.log(createon);
-            console.log(deliverydate);
-            console.log(fecha);
-            console.log(result[0].createon);
-            console.log(result[0].deliverydate);
-
             if (typeof createon === 'undefined') {        
                 console.log("createon es igual a undefined");      
                 if (deliverydate < fecha) {

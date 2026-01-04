@@ -60,6 +60,8 @@ entity zitems_2893 : managed {
         unitofmeasure    : types.zde_unitofmeasure_2893;
 };
 
+// Las siguientes entidades son creadas para poder ser utilizadas en el reporte
+
 @readonly
 entity repcustomer   as select from zcustomer_2893;
 
